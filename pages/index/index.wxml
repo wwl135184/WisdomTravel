@@ -1,0 +1,16 @@
+<!--index.wxml-->
+<view class="index-main">
+	<!-- 地图信息 -->
+	<view class="map_container">
+		<map class="map" id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="16" show-location="true"></map>
+	</view>
+	<!-- 页面信息 -->
+	<view class="map-info" animation="{{animation}}">
+		
+	</view>
+	<!-- 天气信息 -->
+	<view class="weather-info">
+		
+	</view>
+	<button bindtap="animationFun">点击动画</button>
+</view>

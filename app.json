@@ -1,0 +1,17 @@
+{
+	"pages": [
+		"pages/index/index"
+	],
+	"permission": {
+		"scope.userLocation": {
+			"desc": "定位以获取当前您的位置信息"
+		}
+	},
+	"window": {
+		"backgroundTextStyle": "dark",
+		"navigationBarBackgroundColor": "#00BFFF",
+		"navigationBarTitleText": "WisdomTravel",
+		"navigationBarTextStyle": "white"
+	},
+	"sitemapLocation": "sitemap.json"
+}
