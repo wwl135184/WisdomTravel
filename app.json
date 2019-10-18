@@ -9,9 +9,9 @@
 	},
 	"window": {
 		"backgroundTextStyle": "dark",
-		"navigationBarBackgroundColor": "#00BFFF",
+		"navigationBarBackgroundColor": "#F5F5F5",
 		"navigationBarTitleText": "WisdomTravel",
-		"navigationBarTextStyle": "white"
+		"navigationBarTextStyle": "black"
 	},
 	"sitemapLocation": "sitemap.json"
 }

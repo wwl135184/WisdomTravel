@@ -4,13 +4,20 @@
 	<view class="map_container">
 		<map class="map" id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="16" show-location="true"></map>
 	</view>
-	<!-- 页面信息 -->
-	<view class="map-info" animation="{{animation}}">
-		
-	</view>
 	<!-- 天气信息 -->
 	<view class="weather-info">
 		
 	</view>
-	<button bindtap="animationFun">点击动画</button>
+	<!-- 搜索信息 -->
+	<view class="map-info" animation="{{animation}}">
+		<view class="address-info-search">
+			<input placeholder="搜索名称或者地址" animation="{{inputAnimation}}" value="{{inputValue}}" bindinput="addressInfoSearch" bindfocus="animationInputStart" />
+			<text class="cancel-title" wx:if="{{cancelBool}}" bindtap="animationInputEnd">取消</text>
+		</view>
+		<view class="address-list-main">
+			<view class="address-list-item" wx:for="{{tips}}" bindtap="addressLocation" data-location="{{item.location}}" wx:key="{{index}}">
+				<text>{{item.name}}</text>
+			</view>
+		</view>
+	</view>
 </view>
