@@ -2,22 +2,47 @@
 <view class="index-main">
 	<!-- 地图信息 -->
 	<view class="map_container">
-		<map class="map" id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="16" show-location="true"></map>
-	</view>
-	<!-- 天气信息 -->
-	<view class="weather-info">
-		
+		<map class="map" id="myMap" markers="{{markers}}" longitude="{{longitude}}" latitude="{{latitude}}" scale="16"></map>
 	</view>
 	<!-- 搜索信息 -->
 	<view class="map-info" animation="{{animation}}">
 		<view class="address-info-search">
-			<input placeholder="搜索名称或者地址" animation="{{inputAnimation}}" value="{{inputValue}}" bindinput="addressInfoSearch" bindfocus="animationInputStart" />
+			<input placeholder="搜索名称或者地址" animation="{{inputAnimation}}" value="{{addressinfo}}" bindinput="addressInfoSearch" bindfocus="animationInputStart" adjust-position="{{false}}" />
 			<text class="cancel-title" wx:if="{{cancelBool}}" bindtap="animationInputEnd">取消</text>
 		</view>
 		<view class="address-list-main">
-			<view class="address-list-item" wx:for="{{tips}}" bindtap="addressLocation" data-location="{{item.location}}" wx:key="{{index}}">
-				<text>{{item.name}}</text>
+			<view class="address-list-item" wx:for="{{tips}}" bindtap="addressLocation" data-location="{{item.location}}" data-name="{{item.name}}" wx:key="{{index}}">
+				<image class="{{item.address != '' ? 'image-margin' : ''}}" src="../../assets/images/location-info.png"></image>
+				<view class="address-info-main">
+					<view class="address-info-name">{{item.name}}</view>
+					<view class="address-info-details" wx:if="{{item.address != ''}}">{{item.address}}</view>
+				</view>
 			</view>
 		</view>
+	</view>
+	<!-- 天气信息 -->
+	<view class="weather-info">
+		<view>{{weatherData.time}}</view>
+		<view>
+			<text>{{weatherData.city}}</text>
+		</view>
+		<view>
+			<text class="item-info">{{weatherData.weather}}</text>
+			<text class="item-info">{{weatherData.temperature}}℃</text>
+			<text class="item-info">{{weatherData.humidity}}%</text>
+		</view>
+	</view>
+	<!-- 操作组件 -->
+	<view class="operation-module">
+		<view class="item-icon">
+			<icon class="iconfont iconxinxi1"></icon>
+		</view>
+		<view class="item-icon item-icon-two" bindtap="getInitLocationFun">
+			<icon class="iconfont iconGroup-"></icon>
+		</view>
+	</view>
+	<!-- 页面加载动画 -->
+	<view class="load-animation">
+		
 	</view>
 </view>

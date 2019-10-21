@@ -1,4 +1,6 @@
 /**index.wxss**/
+@import "../../assets/iconfont/icon.wxss";
+
 .map_container{
   position: absolute;
   top: 0;
@@ -41,7 +43,7 @@
 	float: left;
 }
 
-.cancel-title {
+.map-info .address-info-search .cancel-title {
 	float: left;
 	font-size: 30rpx;
 	color: #1E90FF;
@@ -52,7 +54,7 @@
 .map-info .address-list-main {
 	padding: 32rpx;
 	padding-top: 0;
-	height: 424rpx;
+	height: 744rpx;
 	overflow: auto;
 	-webkit-overflow-scrolling: touch;
 }
@@ -61,11 +63,82 @@
 	width: 100%;
 	border-bottom: 2rpx solid #e5e5e5;
 	box-sizing: border-box;
+	padding: 32rpx 0;
+	overflow: hidden;
+}
+
+.address-list-item image {
+	width: 40rpx;
+	height: 40rpx;
+	float: left;
+	margin-right: 20rpx;
+}
+
+.address-list-item .image-margin {
+	margin-top: 20rpx;
+}
+
+.address-list-item .address-info-main {
+	float: left;
+	width: 620rpx;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
+	line-height: 40rpx;
+}
+
+.address-info-main .address-info-name {
 	font-size: 30rpx;
 	color: #222;
+}
+
+.address-info-main .address-info-details {
+	font-size: 24rpx;
+	color: #8d8d8d;
+}
+
+.weather-info {
+	padding: 16rpx;
+	background: rgba(0, 0, 0, 0.4);
+	border-radius: 8rpx;
+	position: absolute;
+	top: 32rpx;
+	left: 32rpx;
+	z-index: 10;
+}
+
+.weather-info view {
+	font-size: 24rpx;
+	color: #fff;
 	line-height: 40rpx;
-	padding: 32rpx 0;
+}
+
+.weather-info .item-info {
+	margin-right: 20rpx;
+}
+
+.operation-module {
+	width: 80rpx;
+	height: 160rpx;
+	background: #fff;
+	position: absolute;
+	top: 32rpx;
+	right: 32rpx;
+	z-index: 10;
+	border-radius: 20rpx;
+	box-shadow: 0 0 12rpx rgba(0, 0, 0, 0.2);
+}
+
+.operation-module .item-icon {
+	width: 100%;
+	height: 80rpx;
+	border-bottom: 2rpx solid #e5e5e5;
+	text-align: center;
+	font-size: 40rpx;
+	color: #1E90FF;
+	line-height: 80rpx;
+}
+
+.operation-module .item-icon-two {
+	border-bottom: 0;
 }
