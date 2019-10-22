@@ -5,6 +5,10 @@ const app = getApp();
 
 //amap-wx.js
 var amapFile = require('../../libs/amap-wx.js');
+
+//操作组件
+
+
 var myAmapFun;
 
 Page({
@@ -12,9 +16,9 @@ Page({
 		//地图经纬度
 		longitude: '',
 		latitude: '',
-		iconPath: '../../assets/images/location-two.png',
-		width: 28,
-		height: 28,
+		iconPath: '../../assets/images/marker.png',
+		width: 22,
+		height: 32,
 		markers: [],
 		//动画
 		animation: {},
@@ -24,7 +28,11 @@ Page({
 		addressinfo: '',
 		tips: [],
 		//天气信息
-		weatherData: {}
+		weatherData: {},
+		//键盘收起判断
+		heightBool: false,
+		//地图设置
+		operationBool: false,
 	},
 	onLoad() {
 		myAmapFun = new amapFile.AMapWX({
@@ -86,7 +94,8 @@ Page({
 		})
 		this.animation.height(68).step();
 		this.setData({
-			animation: this.animation.export()
+			animation: this.animation.export(),
+			heightBool: false
 		})
 	},
 	inputWidthStartFun() {
@@ -117,11 +126,18 @@ Page({
 	},
 	//地址搜索
 	animationInputStart() {
+		this.setData({
+			heightBool: true
+		})
 		this.animationStartFun();
 		this.inputWidthStartFun();
 	},
 	//取消
 	animationInputEnd() {
+		//地图初始化
+		if(this.data.addressinfo != '') {
+			this.getInitLocationFun();
+		}
 		this.setData({
 			tips: [],
 			addressinfo: ''
@@ -132,6 +148,15 @@ Page({
 	//地址信息检索
 	addressInfoSearch(e) {
 		this.addressAnalysis(e.detail.value);
+		if(e.detail.value != '') {
+			this.setData({
+				heightBool: false
+			})
+		} else {
+			this.setData({
+				heightBool: true
+			})
+		}
 	},
 	addressAnalysis(keywords) {
 		const that = this;
@@ -199,5 +224,18 @@ Page({
 				console.log(info);
 			}
 		})
-	}
+	},
+	//键盘收起判断
+	pageBindtap() {
+		if(this.data.addressinfo == '' && this.data.heightBool) {
+			this.inputWidthEndFun();
+			this.animationEndFun();
+		}
+	},
+	//地图设置
+	operationShowFun() {
+		this.setData({
+			operationBool: true
+		})
+	},
 })

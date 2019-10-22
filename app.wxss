@@ -9,3 +9,19 @@ page {
 	height: 100%;
 	position: relative;
 } 
+
+/* switch */
+.wx-switch-input {
+	width: 82rpx !important;
+	height: 40rpx !important;
+}
+
+.wx-switch-input::before {
+    width: 78rpx !important;
+    height: 36rpx !important;
+}
+
+.wx-switch-input::after {
+    width: 36rpx !important;
+    height: 36rpx !important;
+}
