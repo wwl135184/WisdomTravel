@@ -119,7 +119,7 @@
 
 .operation-module {
 	width: 80rpx;
-	height: 160rpx;
+	height: 180rpx;
 	background: #fff;
 	position: absolute;
 	top: 32rpx;
@@ -131,14 +131,38 @@
 
 .operation-module .item-icon {
 	width: 100%;
-	height: 80rpx;
+	height: 90rpx;
 	border-bottom: 2rpx solid #e5e5e5;
 	text-align: center;
-	font-size: 40rpx;
+	font-size: 44rpx;
 	color: #1E90FF;
-	line-height: 80rpx;
+	line-height: 90rpx;
 }
 
 .operation-module .item-icon-two {
 	border-bottom: 0;
+}
+
+.map-set-bg {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.2);
+	z-index: 20;
+}
+
+.map-set-main {
+	width: 100%;
+	height: 0;
+	background: rgba(245, 245, 245, 1);
+	border-radius: 12rpx 12rpx 0 0;
+	box-shadow: 0 -2rpx 10rpx rgba(0, 0, 0, 0.2);
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	z-index: 30;
 }

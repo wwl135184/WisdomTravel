@@ -1,24 +1,24 @@
 <view class="operation-component" animation="{{animationComponent}}">
 	<view class="component-header">
 		<view class="header-title">地图设置</view>
-		<view class="header-close" bindtap="animationEndFun">
+		<view class="header-close" bindtap="close">
 			<icon class="iconfont iconicon-"></icon>
 		</view>
 	</view>
 	<view class="map-set">
 		<view class="map-set-tab">
-			<view class="tab-item tab-item-one">地图</view>
-			<view class="tab-item">卫星</view>
+			<view class="{{activeIndex == '0' ? 'tab-item tab-item-one item-active' : 'tab-item tab-item-one'}}" bindtap="mapChange" data-index="0">地图</view>
+			<view class="{{activeIndex == '1' ? 'tab-item item-active' : 'tab-item'}}" bindtap="mapChange" data-index="1">卫星</view>
 		</view>
 		<view class="traffic-set">
 			<text class="traffic-set-title">交通状况</text>
 			<view class="traffic-set-switch">
-				<switch name="switch" />
+				<switch name="switch" bindchange="trafficCondition" />
 			</view>
 		</view>
 	</view>
 	<view class="white-bottom"></view>
 	<view class="technical-support ">
-		<text>技术支持：高德地图</text>
+		<text>技术支持：腾讯地图</text>
 	</view>
 </view>

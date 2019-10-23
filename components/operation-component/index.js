@@ -1,30 +1,32 @@
 Component({
-	pageLifetimes: {
-		show: function() {
-			this.animationEndFun();
-		}
-	},
 	lifetimes: {
 		created() {
+			
 		},
 		attached() {
-			this.animationEndFun();
+			
 		}
 	},
 	data: {
-		animationComponent: {},
+		activeIndex: '0',
 	},
 	methods: {
-		//页面动画
-		animationEndFun() {
-			this.animationComponent = wx.createAnimation({
-				duration: 600,
-				timingFunction: 'ease',
-			})
-			this.animationComponent.height(162).step();
-			this.setData({
-				animationComponent: this.animationComponent.export()
-			})
+		//关闭地图设置
+		close() {
+			this.triggerEvent('mapSetClose');
 		},
+		//地图、卫星切换
+		mapChange(e) {
+			let index = e.currentTarget.dataset.index;
+			this.setData({
+				activeIndex: index
+			})
+			this.triggerEvent('mapChange', index);
+		},
+		//交通状况
+		trafficCondition(e) {
+			const switchBool = e.detail.value;
+			this.triggerEvent('trafficCondition', switchBool)
+		}
 	}
 })

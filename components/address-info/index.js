@@ -1,7 +1,4 @@
 Component({
-	properties: {
-		
-	},
 	lifetimes: {
 		created() {
 			

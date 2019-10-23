@@ -3,54 +3,71 @@
 //获取应用实例
 const app = getApp();
 
-//amap-wx.js
+//高德地图amap-wx.js
 var amapFile = require('../../libs/amap-wx.js');
-
-//操作组件
-
-
 var myAmapFun;
+
+//腾讯地图
+var QQMapWX = require('../../libs/qqmap-wx-jssdk.min.js');
+var qqmapsdk;
 
 Page({
 	data: {
-		//地图经纬度
+		//位置信息
 		longitude: '',
 		latitude: '',
 		iconPath: '../../assets/images/marker.png',
 		width: 22,
 		height: 32,
 		markers: [],
-		//动画
+		//搜索弹出框动画
 		animation: {},
 		inputAnimation: {},
 		cancelBool: false, //取消
 		//搜索信息
 		addressinfo: '',
 		tips: [],
-		//天气信息
-		weatherData: {},
 		//键盘收起判断
 		heightBool: false,
+		//天气信息
+		weatherInfoBool: false,
+		weatherData: {},
 		//地图设置
+		mapSetShowBool: false,
+		mapSetShowAnimation: {},
 		operationBool: false,
+		mapSetAnimation: {},
+		mapChangeBool: false,
+		//交通状况
+		trafficCondition: false,
 	},
 	onLoad() {
+		wx.showLoading({
+		  title: '初始化',
+		})
+		//高德地图
 		myAmapFun = new amapFile.AMapWX({
 			key: '75a3a42f7f2204c53e83bbd82987ece5'
 		});
-		//地图初始化
-		this.getInitLocationFun();
+		//腾讯地图
+		qqmapsdk =  new QQMapWX({
+            key: '5YKBZ-677WR-45BWG-WEOT6-X3UCV-PVB5T'
+        });
+		this.qqmapTest();
 		//天气信息
 		this.getWeatherData();
+		//地图初始化
+		this.getInitLocationFun();
 	},
 	onShow() {
 		
 	},
-	//页面位置信息
+	//位置信息初始化
 	getInitLocationFun() {
 		const that = this;
 		myAmapFun.getRegeo({
 			success: (data) => {
+				wx.hideLoading();
 				var mks = [];
 				var mksObj = {};
 				mksObj['longitude'] = data[0].longitude;
@@ -72,15 +89,27 @@ Page({
 			}
 		})
 	},
-	//页面动画
+	//腾讯地图测试
+	qqmapTest() {
+		qqmapsdk.search({
+			keyword: '酒店',
+			success: (res) => {
+				//console.log(res);
+			},
+			fail: (err) => {
+				conosle.log(err);
+			}
+		})
+	},
+	//搜索弹出框动画
 	animationStartFun() {
-		this.animation = wx.createAnimation({
+		const animation = wx.createAnimation({
 			duration: 200,
 			timingFunction: 'ease',
 		})
-		this.animation.height(440).step();
+		animation.height(440).step();
 		this.setData({
-			animation: this.animation.export()
+			animation: animation.export()
 		})
 		//判断input有没有默认信息
 		if(this.data.addressinfo != '') {
@@ -88,24 +117,24 @@ Page({
 		}
 	},
 	animationEndFun() {
-		this.animation = wx.createAnimation({
-			duration: 300,
+		const animation = wx.createAnimation({
+			duration: 200,
 			timingFunction: 'ease-out',
 		})
-		this.animation.height(68).step();
+		animation.height(68).step();
 		this.setData({
-			animation: this.animation.export(),
+			animation: animation.export(),
 			heightBool: false
 		})
 	},
 	inputWidthStartFun() {
-		this.inputAnimation = wx.createAnimation({
+		const animation = wx.createAnimation({
 			duration: 200,
 			timingFunction: 'ease',
 		});
-		this.inputAnimation.width(273).step();
+		animation.width(273).step();
 		this.setData({
-			inputAnimation: this.inputAnimation.export(),
+			inputAnimation: animation.export(),
 		})
 		setTimeout(() => {
 			this.setData({
@@ -114,14 +143,14 @@ Page({
 		}, 350)
 	},
 	inputWidthEndFun() {
-		this.inputAnimation = wx.createAnimation({
+		const animation = wx.createAnimation({
 			duration: 200,
 			timingFunction: 'ease',
 		})
-		this.inputAnimation.width(315).step();
+		animation.width(315).step();
 		this.setData({
 			cancelBool: false,
-			inputAnimation: this.inputAnimation.export()
+			inputAnimation: animation.export()
 		})
 	},
 	//地址搜索
@@ -204,12 +233,12 @@ Page({
 		this.inputWidthEndFun();
 		this.animationEndFun();
 	},
-	//天气信息
+	//获取天气信息
 	getWeatherData() {
 		const that = this;
 		myAmapFun.getWeather({
 			success: (data) => {
-				//console.log(data);
+				console.log(data);
 				var wt = {};
 				wt['city'] = data.liveData.city;
 				wt['weather'] = data.liveData.weather;
@@ -217,9 +246,10 @@ Page({
 				wt['time'] = data.liveData.reporttime;
 				wt['humidity'] = data.liveData.humidity;
 				this.setData({
-					weatherData: wt
+					weatherData: wt,
+					weatherInfoBool: true
 				})
- 			},
+			},
 			fail: (info) => {
 				console.log(info);
 			}
@@ -232,10 +262,54 @@ Page({
 			this.animationEndFun();
 		}
 	},
-	//地图设置
-	operationShowFun() {
+	//地图设置弹出动画
+	mapSetAnimationFun() {
+		if(!this.data.heightBool) {
+			this.setData({
+				mapSetShowBool: true,
+			})
+			const animation = wx.createAnimation({
+				duration: 300,
+				timingFunction: 'ease'
+			})
+			animation.height(166).step();
+			this.setData({
+				mapSetAnimation: animation.export()
+			})
+		}
+	},
+	mapSetClose() {
+		const animation = wx.createAnimation({
+			duration: 300,
+			timingFunction: 'ease'
+		})
+		animation.height(0).step();
 		this.setData({
-			operationBool: true
+			mapSetAnimation: animation.export(),
+		})
+		setTimeout(() => {
+			this.setData({
+				mapSetShowBool: false
+			})
+		}, 350)
+	},
+	//地图、卫星切换
+	mapChange(e) {
+		const index = e.detail;
+		if(index == '1') {
+			this.setData({
+				mapChangeBool: true
+			})
+		} else {
+			this.setData({
+				mapChangeBool: false
+			})
+		}
+	},
+	//交通状况
+	trafficCondition(e) {
+		this.setData({
+			trafficCondition: e.detail
 		})
 	},
 })

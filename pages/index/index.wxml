@@ -2,7 +2,7 @@
 <view class="index-main">
 	<!-- 地图信息 -->
 	<view class="map_container">
-		<map class="map" id="myMap" markers="{{markers}}" longitude="{{longitude}}" latitude="{{latitude}}" scale="16"></map>
+		<map class="map" id="myMap" markers="{{markers}}" longitude="{{longitude}}" latitude="{{latitude}}" scale="16" enable-satellite="{{mapChangeBool}}" enable-traffic="{{trafficCondition}}"></map>
 	</view>
 	<!-- 搜索信息 -->
 	<view class="map-info" animation="{{animation}}">
@@ -21,25 +21,28 @@
 		</view>
 	</view>
 	<!-- 天气信息 -->
-	<view class="weather-info">
-		<view>{{weatherData.time}}</view>
+	<view class="weather-info" wx:if="{{weatherInfoBool}}">
+		<!-- <view>{{weatherData.time}}</view> -->
 		<view>
-			<text>{{weatherData.city}}</text>
+			<text>{{weatherData.city}}：</text>
+			<text>{{weatherData.weather}}</text>
 		</view>
-		<view>
-			<text class="item-info">{{weatherData.weather}}</text>
-			<text class="item-info">{{weatherData.temperature}}℃</text>
-			<text class="item-info">{{weatherData.humidity}}%</text>
-		</view>
+		<view>温度：{{weatherData.temperature}} ℃</view>
+		<view>湿度：{{weatherData.humidity}} %</view>
+		<view>风向：北风 4级</view>
 	</view>
 	<!-- 操作组件 -->
 	<view class="operation-module">
-		<view class="item-icon" bindtap="operationShowFun">
-			<icon class="iconfont iconxinxi1"></icon>
+		<view class="item-icon" bindtap="mapSetAnimationFun">
+			<icon class="iconfont iconziyuan"></icon>
 		</view>
 		<view class="item-icon item-icon-two" bindtap="getInitLocationFun">
 			<icon class="iconfont iconGroup-"></icon>
 		</view>
 	</view>
-	<operation-component wx:if="{{operationBool}}"></operation-component>
+	<!-- 地图设置 -->
+	<view class="map-set-bg" wx:if="{{mapSetShowBool}}" bindtap="mapSetClose"></view>
+	<view class="map-set-main" animation="{{mapSetAnimation}}">
+		<operation-component bind:mapSetClose="mapSetClose" bind:mapChange="mapChange" bind:trafficCondition="trafficCondition"></operation-component>
+	</view>
 </view>
