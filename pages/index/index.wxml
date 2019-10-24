@@ -22,14 +22,13 @@
 	</view>
 	<!-- 天气信息 -->
 	<view class="weather-info" wx:if="{{weatherInfoBool}}">
-		<!-- <view>{{weatherData.time}}</view> -->
 		<view>
 			<text>{{weatherData.city}}：</text>
 			<text>{{weatherData.weather}}</text>
 		</view>
 		<view>温度：{{weatherData.temperature}} ℃</view>
 		<view>湿度：{{weatherData.humidity}} %</view>
-		<view>风向：北风 4级</view>
+		<view>风向：{{weatherData.winddirection}} {{weatherData.windpower}}</view>
 	</view>
 	<!-- 操作组件 -->
 	<view class="operation-module">

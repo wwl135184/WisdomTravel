@@ -238,13 +238,15 @@ Page({
 		const that = this;
 		myAmapFun.getWeather({
 			success: (data) => {
-				console.log(data);
+				//console.log(data);
 				var wt = {};
 				wt['city'] = data.liveData.city;
 				wt['weather'] = data.liveData.weather;
 				wt['temperature'] = data.liveData.temperature;
-				wt['time'] = data.liveData.reporttime;
+				//wt['time'] = data.liveData.reporttime;
 				wt['humidity'] = data.liveData.humidity;
+				wt['winddirection'] = data.winddirection.data;
+				wt['windpower'] = data.windpower.data;
 				this.setData({
 					weatherData: wt,
 					weatherInfoBool: true
