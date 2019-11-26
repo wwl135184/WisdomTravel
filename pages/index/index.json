@@ -1,5 +1,6 @@
 {
 	"usingComponents": {
-		"operation-component": "../../components/operation-component"
+		"operation-component": "../../components/operation-component",
+		"address-info": "../../components/address-info"
 	}
 }

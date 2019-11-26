@@ -40,6 +40,11 @@ Page({
 		mapChangeBool: false,
 		//交通状况
 		trafficCondition: false,
+		//线路信息
+		location: '',
+		routePlanShowBool: false,
+		routePlanAnimation: {},
+		polyline: [],
 	},
 	onLoad() {
 		wx.showLoading({
@@ -220,18 +225,97 @@ Page({
 		mksObj['height'] = this.data.height;
 		mks.push(mksObj);
 		this.setData({
+			location: location,
 			longitude: longitude,
 			latitude: latitude,
 			markers: mks
 		});
+		const to = {};
+		to['longitude'] = location.split(',')[0];
+		to['latitude'] = location.split(',')[1];
+		this.routeInformation(to);
 		this.selectAddress();
 	},
 	selectAddress() {
 		this.setData({
-			tips: []
+			tips: [],
+			routePlanShowBool: true
 		})
 		this.inputWidthEndFun();
 		this.animationEndFun();
+		this.routePlanStartFun();
+	},
+	//路线规划->wx插件
+	routeInfo(name, latitude, longitude) {
+		let plugin = requirePlugin("routePlan");
+		let key = '5YKBZ-677WR-45BWG-WEOT6-X3UCV-PVB5T';
+		let referer = "WisdomTravel";
+		let endPoint = JSON.stringify({
+			'name': name,
+			'latitude': latitude,
+			'longitude': longitude
+		});
+		wx.navigateTo({
+			url: 'plugin://routePlan/index?key=' + key + '&referer=' + referer + '&endPoint=' + endPoint
+		})
+	},
+	//路线规划
+	routePlanStartFun() {
+		const animation = wx.createAnimation({
+			duration: 200,
+			timingFunction: 'ease'
+		})
+		animation.height(200).step();
+		this.setData({
+			routePlanAnimation: animation.export()
+		})
+	},
+	routePlanEndFun() {
+		const animation = wx.createAnimation({
+			duration: 200,
+			timingFunction: 'ease'
+		})
+		animation.height(0).step();
+		this.setData({
+			routePlanAnimation: animation.export()
+		})
+	},
+	//wx-jssdk->开车
+	routeInformation(to) {
+		const _this = this;
+		qqmapsdk.direction({
+			mode: 'driving',
+			to: to,
+			success: res => {
+				//console.log(res);
+				var ret = res;
+				var coors = ret.result.routes[0].polyline, pl = [];
+				var kr = 1000000;
+				for(var i = 2; i < coors.length; i++) {
+					coors[i] = Number(coors[i - 2]) + Number(coors[i]) / kr;
+				}
+				for(var i = 0; i < coors.length; i += 2) {
+					pl.push({ latitude: coors[i], longitude: coors[i + 1] })
+				}
+				var obj = {};
+				var polylineData = [];
+				obj['points'] = pl;
+				obj['color'] = '#00c39c';
+				obj['width'] = 4;
+				polylineData.push(obj);
+				_this.setData({
+					latitude: pl[0].latitude,
+					longitude: pl[0].longitude,
+					polyline: polylineData
+				})
+			},
+			fail: err => {
+				console.log(err);
+			},
+			complete: res => {
+				console.log(res);
+			}
+		})
 	},
 	//获取天气信息
 	getWeatherData() {

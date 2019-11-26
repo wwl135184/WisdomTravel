@@ -1,0 +1,44 @@
+@import "../../assets/iconfont/icon.wxss";
+
+.address-info-main {
+	padding: 32rpx;
+}
+
+.address-info-main .address-info-header {
+	overflow: hidden;
+}
+
+.address-info-header .address-info {
+	float: left;
+}
+
+.address-info .info-name {
+	font-size: 36rpx;
+	color: #000;
+	font-weight: bold;
+}
+
+.address-info .info-desc, .info-distance {
+	font-size: 28rpx;
+	color: #000;
+}
+
+.address-info-header .close-btn {
+	float: right;
+	width: 44rpx;
+	height: 44rpx;
+	border-radius: 50%;
+	background: #D3D3D3;
+	text-align: center;
+	position: relative;
+}
+
+.address-info-header .close-btn icon {
+	font-size: 28rpx;
+	color: #fff;
+	font-weight: bold;
+	display: inline;
+	position: absolute;
+	top: -14rpx;
+	left: 8rpx;
+}

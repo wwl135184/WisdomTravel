@@ -1,3 +1,12 @@
 <view class="address-info-main">
-	<view></view>
+	<view class="address-info-header">
+		<view class="address-info">
+			<view class="info-name">德馨筑家</view>
+			<view class="info-desc">住宅小区</view>
+			<view class="info-distance">距离：5.4公里</view>
+		</view>
+		<view class="close-btn">
+			<icon class="iconfont iconicon-"></icon>
+		</view>
+	</view>
 </view>

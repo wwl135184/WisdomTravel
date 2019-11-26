@@ -2,7 +2,7 @@
 <view class="index-main">
 	<!-- 地图信息 -->
 	<view class="map_container">
-		<map class="map" id="myMap" markers="{{markers}}" longitude="{{longitude}}" latitude="{{latitude}}" scale="16" enable-satellite="{{mapChangeBool}}" enable-traffic="{{trafficCondition}}"></map>
+		<map class="map" id="myMap" markers="{{markers}}" longitude="{{longitude}}" latitude="{{latitude}}" scale="12" enable-satellite="{{mapChangeBool}}" enable-traffic="{{trafficCondition}}" polyline="{{polyline}}"></map>
 	</view>
 	<!-- 搜索信息 -->
 	<view class="map-info" animation="{{animation}}">
@@ -39,8 +39,13 @@
 			<icon class="iconfont iconGroup-"></icon>
 		</view>
 	</view>
-	<!-- 地图设置 -->
+	<!-- 遮罩层 -->
 	<view class="map-set-bg" wx:if="{{mapSetShowBool}}" bindtap="mapSetClose"></view>
+	<!-- 路径规划 -->
+	<view class="route-plan-main" animation="{{routePlanAnimation}}">
+		<address-info wx:if="{{routePlanShowBool}}" location="{{location}}"></address-info>
+	</view>
+	<!-- 地图设置 -->
 	<view class="map-set-main" animation="{{mapSetAnimation}}">
 		<operation-component bind:mapSetClose="mapSetClose" bind:mapChange="mapChange" bind:trafficCondition="trafficCondition"></operation-component>
 	</view>
