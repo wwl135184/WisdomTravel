@@ -15,12 +15,14 @@
 .address-info .info-name {
 	font-size: 36rpx;
 	color: #000;
+	line-height: 56rpx;
 	font-weight: bold;
 }
 
 .address-info .info-desc, .info-distance {
 	font-size: 28rpx;
-	color: #000;
+	color: #8d8d8d;
+	line-height: 44rpx;
 }
 
 .address-info-header .close-btn {
@@ -41,4 +43,20 @@
 	position: absolute;
 	top: -14rpx;
 	left: 8rpx;
+}
+
+.address-info-main .router-info-main {
+	width: 100%;
+	height: 80rpx;
+	background: #1E90FF;
+	border-radius: 8rpx;
+	font-size: 24rpx;
+	color: #fff;
+	margin-top: 20rpx;
+	text-align: center;
+	overflow: hidden;
+}
+
+.router-info-main .router-info-label {
+	margin-top: 8rpx;
 }

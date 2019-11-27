@@ -20,6 +20,7 @@ Page({
 		width: 22,
 		height: 32,
 		markers: [],
+		scale: 16,
 		//搜索弹出框动画
 		animation: {},
 		inputAnimation: {},
@@ -42,9 +43,11 @@ Page({
 		trafficCondition: false,
 		//线路信息
 		location: '',
+		address: '',
 		routePlanShowBool: false,
 		routePlanAnimation: {},
 		polyline: [],
+		mapInitBool: true,
 	},
 	onLoad() {
 		wx.showLoading({
@@ -82,9 +85,7 @@ Page({
 				mksObj['height'] = this.data.height;
 				mks.push(mksObj);
 				that.setData({
-					markers: mks
-				});
-				that.setData({
+					markers: mks,
 					longitude: data[0].longitude,
 					latitude: data[0].latitude
 				});
@@ -225,6 +226,7 @@ Page({
 		mksObj['height'] = this.data.height;
 		mks.push(mksObj);
 		this.setData({
+			address: addressName,
 			location: location,
 			longitude: longitude,
 			latitude: latitude,
@@ -239,10 +241,11 @@ Page({
 	selectAddress() {
 		this.setData({
 			tips: [],
-			routePlanShowBool: true
+			routePlanShowBool: true,
 		})
 		this.inputWidthEndFun();
 		this.animationEndFun();
+		//路径规划
 		this.routePlanStartFun();
 	},
 	//路线规划->wx插件
@@ -262,10 +265,10 @@ Page({
 	//路线规划
 	routePlanStartFun() {
 		const animation = wx.createAnimation({
-			duration: 200,
+			duration: 154,
 			timingFunction: 'ease'
 		})
-		animation.height(200).step();
+		animation.height(154).step();
 		this.setData({
 			routePlanAnimation: animation.export()
 		})
@@ -277,8 +280,12 @@ Page({
 		})
 		animation.height(0).step();
 		this.setData({
-			routePlanAnimation: animation.export()
+			routePlanAnimation: animation.export(),
+			routePlanShowBool: false,
+			polyline: [],
+			scale: 16
 		})
+		this.getInitLocationFun();
 	},
 	//wx-jssdk->开车
 	routeInformation(to) {
@@ -301,12 +308,13 @@ Page({
 				var polylineData = [];
 				obj['points'] = pl;
 				obj['color'] = '#00c39c';
-				obj['width'] = 4;
+				obj['width'] = 8;
 				polylineData.push(obj);
 				_this.setData({
 					latitude: pl[0].latitude,
 					longitude: pl[0].longitude,
-					polyline: polylineData
+					polyline: polylineData,
+					scale: 12
 				})
 			},
 			fail: err => {

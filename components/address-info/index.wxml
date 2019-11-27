@@ -1,12 +1,16 @@
 <view class="address-info-main">
 	<view class="address-info-header">
 		<view class="address-info">
-			<view class="info-name">德馨筑家</view>
-			<view class="info-desc">住宅小区</view>
-			<view class="info-distance">距离：5.4公里</view>
+			<view class="info-name">{{addressName}}</view>
+			<view class="info-desc">{{addressInfo}}</view>
+			<view class="info-distance">距离：{{distance}}公里</view>
 		</view>
-		<view class="close-btn">
+		<view class="close-btn" bindtap="close">
 			<icon class="iconfont iconicon-"></icon>
 		</view>
+	</view>
+	<view class="router-info-main">
+		<view class="router-info-label">路线</view>
+		<view class="router-info-way">开车 约{{duration}}分钟</view>
 	</view>
 </view>
