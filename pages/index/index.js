@@ -265,10 +265,10 @@ Page({
 	//路线规划
 	routePlanStartFun() {
 		const animation = wx.createAnimation({
-			duration: 154,
+			duration: 200,
 			timingFunction: 'ease'
 		})
-		animation.height(154).step();
+		animation.height(158).step();
 		this.setData({
 			routePlanAnimation: animation.export()
 		})
@@ -358,7 +358,7 @@ Page({
 	},
 	//地图设置弹出动画
 	mapSetAnimationFun() {
-		if(!this.data.heightBool) {
+		if(!this.data.heightBool && !this.data.routePlanShowBool) {
 			this.setData({
 				mapSetShowBool: true,
 			})

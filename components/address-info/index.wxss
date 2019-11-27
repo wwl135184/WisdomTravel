@@ -47,16 +47,21 @@
 
 .address-info-main .router-info-main {
 	width: 100%;
-	height: 80rpx;
+	height: 88rpx;
 	background: #1E90FF;
-	border-radius: 8rpx;
+	border-radius: 16rpx;
 	font-size: 24rpx;
 	color: #fff;
+	line-height: 24rpx;
 	margin-top: 20rpx;
 	text-align: center;
 	overflow: hidden;
 }
 
 .router-info-main .router-info-label {
-	margin-top: 8rpx;
+	margin-top: 14rpx;
+}
+
+.router-info-main .router-info-way {
+	margin-top: 12rpx;
 }
